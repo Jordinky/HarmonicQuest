@@ -1,0 +1,28 @@
+{
+  "name": "harmonicquest",
+  "version": "1.0.0",
+  "description": "backend for a music searching website",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jordinky/HarmonicQuest.git"
+  },
+  "keywords": [],
+  "author": "Jordi Pelaez Calderini",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jordinky/HarmonicQuest/issues"
+  },
+  "homepage": "https://github.com/Jordinky/HarmonicQuest#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "faker": "^6.6.6",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.3.1"
+  }
+}
