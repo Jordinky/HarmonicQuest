@@ -4,6 +4,9 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken'); // Import the jsonwebtoken library
 const { faker } = require('@faker-js/faker');
 const app = express();
+const userManagement = require('./dataManagement.js')
+
+
 
 app.use(bodyParser.json());
 
@@ -36,7 +39,24 @@ function generateToken(username) {
 app.get('/musicians', (req, res) => {
   res.json(musicians);
 });
-
+// Route to search musicians by instrument
+app.get('/musicians/search', (req, res) => {
+    const { instruments } = req.query;
+  
+    if (!instruments) {
+      return res.status(400).json({ message: 'Please provide at least one instrument to search for.' });
+    }
+  
+    // Split the instruments parameter into an array
+    const instrumentList = instruments.split(',');
+  
+    // Filter musicians based on the provided instruments
+    const filteredMusicians = musicians.filter((musician) =>
+      musician.instruments.some((instrument) => instrumentList.includes(instrument))
+    );
+  
+    res.json(filteredMusicians);
+  });
 // Mock route to register a new user (no actual user registration logic here)
 app.post('/register', (req, res) => {
     const { username, password } = req.body;
@@ -61,7 +81,18 @@ app.post('/register', (req, res) => {
     const token = generateToken(username);
     res.status(201).json({ message: 'User registered successfully', token });
   });
- 
+
+app.post('/regdatabase',(req,res) => {
+  const{ username, password } = req.body;
+  const insert = userManagement.insertUser(username);
+  const userExists = registeredUsers();
+  if(userExists == insert){
+    return res.status(404).json({message: 'User already registered'});
+  }else{
+    res.status(201).json({message: 'user registered succesfully',token})
+  }
+});
+
 app.post('/login', (req, res) => {
 const { username, password } = req.body;
 
